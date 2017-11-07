@@ -16,6 +16,7 @@
 //
 // Example:
 //
+//		import "github.com/sunnyregion/util"
 //这个文件作为我基础使用的一些函数的寄存处
 package util
 
@@ -34,7 +35,7 @@ func SunnyMd5(str string) (keyMd5 string) {
 
 // 返回格式化好的当前字符串
 // style 是day返回年月日，是time返回2006-01-02 15:04:05
-func SunnyTimeNow() (result string, style string) {
+func SunnyTimeNow(style string) (result string) {
 	switch style {
 	case "day":
 		result = time.Now().Format("2006-01-02")
