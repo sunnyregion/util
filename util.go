@@ -24,6 +24,8 @@ import (
 	"crypto/md5"
 	"encoding/hex"
 	"time"
+
+	"github.com/pquerna/ffjson/ffjson"
 )
 
 // md5 return
@@ -44,5 +46,19 @@ func SunnyTimeNow(style string) (result string) {
 	default:
 		result = time.Now().Format("2006-01-02 15:04:05")
 	}
+	return
+}
+
+//// json return
+//func StructToJSON(data map[interface{}]interface{}) string {
+//	content, _ := ffjson.Marshal(data)
+//	s := string(content)
+//	return s
+
+//}
+
+func SunnyJsonToStr(jsondata interface{}) (result string) {
+	content, _ := ffjson.Marshal(jsondata)
+	result = string(content)
 	return
 }
