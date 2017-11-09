@@ -49,13 +49,18 @@ func SunnyTimeNow(style string) (result string) {
 	return
 }
 
-//// json return
-//func StructToJSON(data map[interface{}]interface{}) string {
-//	content, _ := ffjson.Marshal(data)
-//	s := string(content)
-//	return s
-
-//}
+//把时间类型的转换为字符串
+func SunnyTimeToStr(t time.Time, style string) (result string) {
+	switch style {
+	case "day":
+		result = t.Format("2006-01-02")
+	case "time":
+		result = t.Format("2006-01-02 15:04:05")
+	default:
+		result = t.Format("2006-01-02 15:04:05")
+	}
+	return
+}
 
 func SunnyJsonToStr(jsondata interface{}) (result string) {
 	content, _ := ffjson.Marshal(jsondata)
