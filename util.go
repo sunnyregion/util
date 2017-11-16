@@ -23,6 +23,7 @@ package util
 import (
 	"crypto/md5"
 	"encoding/hex"
+	"os"
 	"time"
 
 	"github.com/pquerna/ffjson/ffjson"
@@ -43,6 +44,8 @@ func SunnyTimeNow(style string) (result string) {
 		result = time.Now().Format("2006-01-02")
 	case "time":
 		result = time.Now().Format("2006-01-02 15:04:05")
+	case "sunnytime":
+		result = time.Now().Format("150405")
 	default:
 		result = time.Now().Format("2006-01-02 15:04:05")
 	}
@@ -62,8 +65,16 @@ func SunnyTimeToStr(t time.Time, style string) (result string) {
 	return
 }
 
+// 把json变成字符串
 func SunnyJsonToStr(jsondata interface{}) (result string) {
 	content, _ := ffjson.Marshal(jsondata)
 	result = string(content)
 	return
+}
+
+// 如果path不存在创建
+func SunnyIsNotExist(path string) {
+	if _, err := os.Stat(path); os.IsNotExist(err) {
+		os.Mkdir(path, os.ModePerm)
+	}
 }
