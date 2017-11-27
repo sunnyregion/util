@@ -29,6 +29,8 @@ import (
 	"github.com/pquerna/ffjson/ffjson"
 )
 
+type Element interface{}
+
 // md5 return
 func SunnyMd5(str string) (keyMd5 string) {
 	m := md5.Sum([]byte(str))
@@ -77,4 +79,28 @@ func SunnyIsNotExist(path string) {
 	if _, err := os.Stat(path); os.IsNotExist(err) {
 		os.Mkdir(path, os.ModePerm)
 	}
+}
+
+// 类似python的list.index()方法，找出slice里面是否包含查询的参数
+// 返回值是-1表示没有搜索到。
+func SliceIndex(a Element, i interface{}) int {
+	if b, ok := a.([]int); ok {
+		if c, ok1 := i.(int); ok1 {
+			for indexC, v := range b {
+				if v == c {
+					return indexC
+				}
+			}
+		}
+	}
+	if b, ok := a.([]string); ok {
+		if c, ok1 := i.(string); ok1 {
+			for indexC, v := range b {
+				if v == c {
+					return indexC
+				}
+			}
+		}
+	}
+	return -1
 }
