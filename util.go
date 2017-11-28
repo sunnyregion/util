@@ -23,6 +23,7 @@ package util
 import (
 	"crypto/md5"
 	"encoding/hex"
+	"fmt"
 	"os"
 	"time"
 
@@ -102,5 +103,19 @@ func SliceIndex(a Element, i interface{}) int {
 			}
 		}
 	}
+	if b, ok := a.([]float64); ok {
+		if c, ok1 := i.(float64); ok1 {
+			for indexC, v := range b {
+				if v == c {
+					return indexC
+				}
+			}
+		}
+	}
 	return -1
+}
+
+// 返回数据类型
+func SunnyTypeof(v interface{}) string {
+	return fmt.Sprintf("%T", v)
 }
