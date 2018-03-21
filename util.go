@@ -50,7 +50,7 @@ func SunnyTimeNow(style string) (result string) {
 	case "sunnytime":
 		result = time.Now().Format("150405")
 	default:
-		result = time.Now().Format("2006-01-02 15:04:05")
+		result = time.Now().Format("2006-01-02 15:04:05.999999999 +0800 CST m=+0.999999999")
 	}
 	return
 }
@@ -118,4 +118,30 @@ func SliceIndex(a Element, i interface{}) int {
 // 返回数据类型
 func SunnyTypeof(v interface{}) string {
 	return fmt.Sprintf("%T", v)
+}
+
+//输入字符串返回时间
+//待转化为时间戳的字符串 注意 这里的小时和分钟还要秒必须写 因为是跟着模板走的 修改模板的话也可以不写
+// @Param str string
+// @Return time.Time
+func SunnyStr2Time(strTime string) time.Time {
+	timeLayout := "2006-01-02 15:04:05.999999999"          //转化所需模板
+	loc, _ := time.LoadLocation("Local")                   //重要：获取时区
+	t, _ := time.ParseInLocation(timeLayout, strTime, loc) //使用模板在对应时区转化为time.time类型
+	return t
+}
+
+//比较时间戳大小
+// @Param t,u time.Time需要比较的时间
+// @Param symbol string 标志包括 lt gt eq
+func SunnyCompareTime(t, u time.Time, symbol string) (b bool) {
+	switch symbol {
+	case "lt":
+		b = t.Before(u)
+	case "gt":
+		b = t.After(u)
+	case "eq":
+		b = t.Equal(u)
+	}
+	return b
 }
