@@ -24,8 +24,12 @@ import (
 	"crypto/md5"
 	"encoding/hex"
 	"fmt"
+	"math/rand"
 	"os"
+	"strings"
 	"time"
+
+	"github.com/oklog/ulid"
 
 	"github.com/pquerna/ffjson/ffjson"
 )
@@ -131,7 +135,7 @@ func SunnyStr2Time(strTime string) time.Time {
 	return t
 }
 
-//比较时间戳大小
+// 比较时间戳大小
 // @Param t,u time.Time需要比较的时间
 // @Param symbol string 标志包括 lt gt eq
 func SunnyCompareTime(t, u time.Time, symbol string) (b bool) {
@@ -144,4 +148,18 @@ func SunnyCompareTime(t, u time.Time, symbol string) (b bool) {
 		b = t.Equal(u)
 	}
 	return b
+}
+
+// 得到UUID
+func GetULID() ulid.ULID {
+	t := time.Now()
+	entropy := rand.New(rand.NewSource(t.UnixNano()))
+	return ulid.MustNew(ulid.Timestamp(t), entropy)
+	// Output: 0000XSNJG0MQJHBF4QX1EFD6Y3
+}
+
+func GetULID2Str() string {
+	var a [16]byte
+	a = GetULID()
+	return strings.ToUpper(hex.EncodeToString(a[:]))
 }
