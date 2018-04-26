@@ -9,9 +9,12 @@
 - SunnyTypeof:返回数据类型
 - SunnyStr2Time:输入字符串返回时间
 - SunnyCompareTime:比较两个时间大小，lt、eq、gt
+- Jpg2Base64 : jpeg图片转成Base64
+- Base642Image:Base64转成PNG或者JPG
 
 
 #### 2017/11/07 开始写作
 #### 2017/11/16 有新函数添加
 #### 2017/11/28 有新函数添加
 #### 2018/03/21 有新函数添加
+#### 2018/04/26 有新函数添加
