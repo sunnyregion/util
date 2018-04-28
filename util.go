@@ -126,13 +126,31 @@ func SunnyTypeof(v interface{}) string {
 
 //输入字符串返回时间
 //待转化为时间戳的字符串 注意 这里的小时和分钟还要秒必须写 因为是跟着模板走的 修改模板的话也可以不写
-// @Param str string
+// @Param strTime string
 // @Return time.Time
 func SunnyStr2Time(strTime string) time.Time {
 	timeLayout := "2006-01-02 15:04:05.999999999"          //转化所需模板
 	loc, _ := time.LoadLocation("Local")                   //重要：获取时区
 	t, _ := time.ParseInLocation(timeLayout, strTime, loc) //使用模板在对应时区转化为time.time类型
 	return t
+}
+
+//输入字符串返回UTC时间
+//待转化为时间戳的字符串 注意 这里的小时和分钟还要秒必须写 因为是跟着模板走的 修改模板的话也可以不写
+// @Param strTime string
+// @Return time.Time error
+func SunnyStr2USATime(strTime string) (time.Time, error) {
+	timeLayout := "2006-01-02T15:04:05.999999999Z07:00"   //转化所需模板
+	loc, _ := time.LoadLocation("Local")                  //重要：获取时区
+	return time.ParseInLocation(timeLayout, strTime, loc) //使用模板在对应时区转化为time.time类型
+}
+
+//输入字符串返回增加或者减少的时间，1m是增加一分钟，-1m是减少一分钟
+// @Param strSpan string,t time.Time
+// @Return time.Time
+func SunnyParseDuration(strSpan string, t time.Time) time.Time {
+	m, _ := time.ParseDuration(strSpan)
+	return t.Add(m)
 }
 
 // 比较时间戳大小
