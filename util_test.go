@@ -7,21 +7,25 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+//para struct
 type para struct {
 	one    time.Time
 	two    time.Time
 	symbol string
 }
 
+//ans struct
 type ans struct {
 	one bool
 }
 
+//question struct
 type question struct {
 	p para
 	a ans
 }
 
+//Test_OK ...
 func Test_OK(t *testing.T) {
 	ast := assert.New(t)
 
