@@ -28,7 +28,6 @@ type question struct {
 //Test_OK ...
 func Test_OK(t *testing.T) {
 	ast := assert.New(t)
-
 	qs := []question{
 		question{
 			p: para{
