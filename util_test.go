@@ -29,7 +29,7 @@ type question struct {
 func Test_OK(t *testing.T) {
 	ast := assert.New(t)
 	qs := []question{
-		question{
+		{
 			p: para{
 				one:    SunnyStr2Time(`2018-03-21 12:00:00`),
 				two:    SunnyStr2Time(`2018-03-21 12:00:00`),
@@ -39,7 +39,7 @@ func Test_OK(t *testing.T) {
 				one: true,
 			},
 		},
-		question{
+		{
 			p: para{
 				one:    SunnyStr2Time(`2018-03-21 12:00:00`),
 				two:    SunnyStr2Time(`2018-03-21 13:00:00`),
@@ -49,7 +49,7 @@ func Test_OK(t *testing.T) {
 				one: false,
 			},
 		},
-		question{
+		{
 			p: para{
 				one:    SunnyStr2Time(`2018-03-21 12:00:00`),
 				two:    SunnyStr2Time(`2018-03-21 13:00:00`),
@@ -59,7 +59,7 @@ func Test_OK(t *testing.T) {
 				one: true,
 			},
 		},
-		question{
+		{
 			p: para{
 				one:    SunnyStr2Time(`2018-03-21 14:20:00`),
 				two:    SunnyStr2Time(`2018-03-21 13:00:00`),
@@ -69,7 +69,7 @@ func Test_OK(t *testing.T) {
 				one: false,
 			},
 		},
-		question{
+		{
 			p: para{
 				one:    SunnyStr2Time(`2018-03-21 14:20:00`),
 				two:    SunnyStr2Time(`2018-03-21 13:00:00`),
