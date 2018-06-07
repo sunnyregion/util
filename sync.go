@@ -52,6 +52,14 @@ func (c *SafeCounter) Value(key string) string {
 }
 
 // Value returns the current value of the counter for the given key.
+func (c *SafeCounter) GetValue(key string) (string, int) {
+	c.Mux.Lock()
+	// Lock so only one goroutine at a time can access the map c.v.
+	defer c.Mux.Unlock()
+	return c.Val[key], c.T
+}
+
+// Value returns the current value of the counter for the given key.
 func (c *SafeCounter) Clear(key string) {
 	c.Mux.Lock()
 	// Lock so only one goroutine at a time can access the map c.v.
