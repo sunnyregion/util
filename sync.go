@@ -31,10 +31,10 @@ type SafeCounter struct {
 }
 
 // Inc increments the counter for the given key.
-func (c *SafeCounter) Inc(key string) {
+func (c *SafeCounter) Inc(key string, str strintg) {
 	c.Mux.Lock()
 	// Lock so only one goroutine at a time can access the map c.v.
-	c.Val[key] = `sss`
+	c.Val[key] += str
 	c.Mux.Unlock()
 }
 
