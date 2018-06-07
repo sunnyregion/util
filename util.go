@@ -69,7 +69,7 @@ func SunnyTimeToStr(t time.Time, style string) (result string) {
 	case "time":
 		result = t.Format("2006-01-02 15:04:05")
 	default:
-		result = t.Format("2006-01-02 15:04:05")
+		result = t.Format("2006-01-02 15:04:05.999999999 +0800 CST m=+0.999999999")
 	}
 	return
 }
