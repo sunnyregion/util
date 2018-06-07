@@ -28,15 +28,18 @@ import (
 // SafeCounter is safe to use concurrently.
 type SafeCounter struct {
 	Val map[string]string
-	T   time.Time
+	T   int
 	Mux sync.Mutex
 }
 
 // Inc increments the counter for the given key.
-func (c *SafeCounter) Inc(key string, str string) {
+func (c *SafeCounter) Inc(key string, str string, b bool) {
 	c.Mux.Lock()
 	// Lock so only one goroutine at a time can access the map c.v.
 	c.Val[key] += str
+	if b {
+		c.T = int(time.Now().Unix())
+	}
 	c.Mux.Unlock()
 }
 
@@ -54,4 +57,5 @@ func (c *SafeCounter) Clear(key string) {
 	// Lock so only one goroutine at a time can access the map c.v.
 	defer c.Mux.Unlock()
 	c.Val[key] = ``
+	c.T = 0
 }
