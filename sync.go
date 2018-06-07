@@ -22,11 +22,13 @@ package util
 // 这个文件我是为了处理GO语言并发编程之互斥锁、读写锁详解
 import (
 	"sync"
+	"time"
 )
 
 // SafeCounter is safe to use concurrently.
 type SafeCounter struct {
 	Val map[string]string
+	T   time.Time
 	Mux sync.Mutex
 }
 
