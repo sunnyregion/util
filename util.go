@@ -31,8 +31,8 @@ import (
 	"time"
 
 	"github.com/oklog/ulid"
-
 	"github.com/pquerna/ffjson/ffjson"
+	UUID "github.com/satori/go.uuid"
 )
 
 //Element interface
@@ -176,6 +176,11 @@ func GetULID() ulid.ULID {
 	entropy := rand.New(rand.NewSource(t.UnixNano()))
 	return ulid.MustNew(ulid.Timestamp(t), entropy)
 	// Output: 0000XSNJG0MQJHBF4QX1EFD6Y3
+}
+
+//GetULID 得到UUID
+func GetULIDV4() UUID.UUID {
+	return UUID.Must(UUID.NewV4())
 }
 
 //GetULID2Str ...
