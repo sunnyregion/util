@@ -35,6 +35,7 @@ import (
 //Jpg2Base64 ...
 func Jpg2Base64(filename string) (base64Str string, err error) {
 	src, err := imaging.Open(filename)
+
 	if err != nil {
 		base64Str = ``
 	} else {
