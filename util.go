@@ -53,6 +53,8 @@ func SunnyTimeNow(style string) (result string) {
 		result = time.Now().Format("2006-01-02")
 	case "time":
 		result = time.Now().Format("2006-01-02 15:04:05")
+	case "sunnyday":
+		result = time.Now().Format("20060102")
 	case "sunnytime":
 		result = time.Now().Format("150405")
 	default:
