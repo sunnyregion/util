@@ -20,7 +20,7 @@ func DoWritLogFile(data interface{}, msg string, symbol string, lf *os.File) {
 	defer close(logch)
 }
 
-// writeLogFile把写日志变成多线程
+// writeLogFile  把写日志变成多线程
 func writeLogFile(ch chan sunnyLogStruct, lf *os.File) {
 	mych := <-ch
 	message := ""
