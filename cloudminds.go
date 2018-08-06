@@ -1,6 +1,7 @@
 package util
 
 import (
+	"bytes"
 	"sort"
 	"strings"
 )
@@ -16,4 +17,13 @@ func BuildsSort(s string) string {
 	s = strings.Join(ss, ",")
 	s = `{` + s + `}`
 	return s
+}
+
+// SunnyStrJoin ...高级字符串拼接程序
+func SunnyStrJoin(str ...string) string {
+	var buf bytes.Buffer
+	for _, s := range str {
+		buf.WriteString(s)
+	}
+	return buf.String()
 }
