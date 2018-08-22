@@ -24,6 +24,7 @@ package util
 import (
 	"crypto/md5"
 	"encoding/hex"
+	"encoding/json"
 	"fmt"
 	"math/rand"
 	"os"
@@ -31,7 +32,7 @@ import (
 	"time"
 
 	"github.com/oklog/ulid"
-	"github.com/pquerna/ffjson/ffjson"
+	//"github.com/pquerna/ffjson/ffjson"
 	UUID "github.com/satori/go.uuid"
 )
 
@@ -78,7 +79,7 @@ func SunnyTimeToStr(t time.Time, style string) (result string) {
 
 //SunnyJSONToStr 把json变成字符串
 func SunnyJSONToStr(jsondata interface{}) (result string) {
-	content, _ := ffjson.Marshal(jsondata)
+	content, _ := json.Marshal(jsondata)
 	result = string(content)
 	return
 }
