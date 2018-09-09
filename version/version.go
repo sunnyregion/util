@@ -11,6 +11,7 @@ var (
 	BUILD_TIME string
 	BUILD_NAME string
 	GO_VERSION string
+	EMOJI      string
 )
 
 func init() {
@@ -22,7 +23,8 @@ func init() {
 		fmt.Printf("Build Version:\t%s\n", VERSION)
 		fmt.Printf("Build Time:\t%s\n", BUILD_TIME)
 		fmt.Printf("Git ID:\t%s\n", GO_VERSION)
-		fmt.Println(`-----🎉🎉🎉👍💁👌⚽🎍😍🎉🎉🎉------`)
+		//fmt.Println(`-----🎉🎉🎉👍💁👌⚽🎍😍🎉🎉🎉------`)
+		fmt.Println(EMOJI)
 		os.Exit(0)
 	}
 }
