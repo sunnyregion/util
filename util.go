@@ -49,6 +49,11 @@ func SunnyMd5(str string) (keyMd5 string) {
 	return
 }
 
+//GetDateTimeFormat ...
+func GetDateTimeFormat(t time.Time) string {
+	return t.Format("2006-01-02 15:04:05")
+}
+
 //SunnyTimeNow 返回格式化好的当前字符串
 // style 是day返回年月日，是time返回2006-01-02 15:04:05
 func SunnyTimeNow(style string) (result string) {
