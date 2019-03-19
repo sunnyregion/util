@@ -99,6 +99,13 @@ func SunnyIsNotExist(path string) {
 	}
 }
 
+//SunnyIsNotExists 如果path不存在创建(创建多级目录)
+func SunnyIsNotExists(path string) {
+	if _, err := os.Stat(path); os.IsNotExist(err) {
+		_ = os.MkdirAll(path, os.ModePerm)
+	}
+}
+
 //SliceIndex 类似python的list.index()方法，找出slice里面是否包含查询的参数
 // 返回值是-1表示没有搜索到。
 func SliceIndex(a Element, i interface{}) int {
