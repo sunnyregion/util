@@ -27,9 +27,12 @@ import (
 	"image"
 	"image/jpeg"
 	"image/png"
+	"os"
 	"strings"
 
 	"github.com/disintegration/imaging"
+	"github.com/rwcarlsen/goexif/exif"
+	"github.com/rwcarlsen/goexif/mknote"
 )
 
 //Jpg2Base64 ...
@@ -74,5 +77,43 @@ func Base642Image(image string) (img image.Image, picType string, err error) {
 		picType = "image/jpeg"
 		img, err = jpeg.Decode(res)
 	}
+	return
+}
+
+// IsOrientationZero  是否是正向的照片
+// @Param f *os.File  图片文件句柄
+// @Return b bool, e error
+func IsOrientationZero(f *os.File) (b bool, e error) {
+	exif.RegisterParsers(mknote.All...)
+	x, err := exif.Decode(f)
+	if err != nil {
+		e = err
+	}
+	camModel, _ := x.Get(exif.Orientation)
+	if camModel.Val[1] == 1 {
+		b = true
+		e = nil
+	}
+	return
+}
+
+/*
+//旋转角度	   参数
+//0°   	    1
+//顺时针90°	6
+//逆时针90°	8
+//180°     	3
+*/
+// GetOrientation  取得照片旋转的方向
+// @Param f *os.File  图片文件句柄
+// @Return b bool, e error
+func GetOrientation(f *os.File) (val int, e error) {
+	exif.RegisterParsers(mknote.All...)
+	x, err := exif.Decode(f)
+	if err != nil {
+		e = err
+	}
+	camModel, _ := x.Get(exif.Orientation)
+	val = int(camModel.Val[1])
 	return
 }
