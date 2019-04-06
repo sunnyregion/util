@@ -27,8 +27,10 @@ import (
 
 	"encoding/json"
 	"fmt"
+	"math"
 	"math/rand"
 	"os"
+	"strconv"
 	"strings"
 	"time"
 
@@ -38,6 +40,8 @@ import (
 	//"github.com/pquerna/ffjson/ffjson"
 	UUID "github.com/satori/go.uuid"
 )
+
+const EARTH_RADIUS = 6371000
 
 //Element interface
 type Element interface{}
@@ -206,4 +210,88 @@ func GetULID2Str() string {
 	var a [16]byte
 	a = GetULID()
 	return strings.ToUpper(hex.EncodeToString(a[:]))
+}
+
+/**
+ * 截取字符串
+ * @param str 字符串
+ * @param start 开始的位置
+ * @param length 截取多长，可是采用负数，就是从右往前计算
+ */
+func Substr(str string, start, length int) string {
+	rs := []rune(str)
+	rl := len(rs)
+	end := 0
+
+	if start < 0 {
+		start = rl - 1 + start
+	}
+	if length < 0 {
+		end = len(str) + length
+	} else {
+		end = start + length
+	}
+
+	if start > end {
+		start, end = end, start
+	}
+
+	if start < 0 {
+		start = 0
+	}
+	if start > rl {
+		start = rl
+	}
+	if end < 0 {
+		end = 0
+	}
+	if end > rl {
+		end = rl
+	}
+
+	return string(rs[start:end])
+}
+
+type Longlati struct {
+	Long float64
+	Lati float64
+}
+
+func (l *Longlati) GetLong() float64 {
+	return l.Long
+}
+func (l *Longlati) SetLong(value float64) {
+	l.Long = value
+}
+func (l *Longlati) SetLongFromString(value string) {
+	f, _ := strconv.ParseFloat(value, 64)
+	l.Long = f
+}
+func (l *Longlati) GetLati() float64 {
+	return l.Lati
+}
+func (l *Longlati) SetLati(value float64) {
+	l.Lati = value
+}
+func (l *Longlati) SetLatiFromString(value string) {
+	f, _ := strconv.ParseFloat(value, 64)
+	l.Lati = f
+}
+
+/**
+ * 取得两个经纬度之间的差值
+ * oldLL 原来的坐标
+ * newLL 新的坐标
+ */
+func Get_two_points_distance(oldLL Longlati, newLL Longlati) int {
+	lng1 := oldLL.GetLong() * math.Pi / 180
+	lat1 := oldLL.GetLati() * math.Pi / 180
+	lng2 := newLL.GetLong() * math.Pi / 180
+	lat2 := newLL.GetLati() * math.Pi / 180
+	calcLongitude := lng2 - lng1
+	calcLatitude := lat2 - lat1
+	stepOne := math.Pow(math.Sin(calcLatitude/2), 2) + math.Cos(lat1)*math.Cos(lat2)*math.Pow(math.Sin(calcLongitude/2), 2)
+	stepTwo := 2 * math.Asin(math.Min(1, math.Sqrt(stepOne)))
+	calculatedDistance := EARTH_RADIUS * stepTwo
+	return int(calculatedDistance + 0.5)
 }
