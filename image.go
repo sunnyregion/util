@@ -117,3 +117,13 @@ func GetOrientation(f *os.File) (val int, e error) {
 	val = int(camModel.Val[1])
 	return
 }
+
+// GetImageSize 取得图片尺寸
+// @Param file *os.File 文件句柄
+// @Return width,height int
+func GetImageSize(file *os.File) (width, height int) {
+	c, _, _ := image.DecodeConfig(file)
+	width = c.Width
+	height = c.Height
+	return
+}
