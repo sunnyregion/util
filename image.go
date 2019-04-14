@@ -92,11 +92,16 @@ func IsOrientationZero(f *os.File) (b bool, e error) {
 	if err != nil {
 		e = err
 	} else {
-		camModel, _ := x.Get(exif.Orientation)
-		if camModel.Val[1] == 1 {
-			b = true
-			e = nil
+		camModel, err := x.Get(exif.Orientation)
+		if err == nil {
+			if camModel.Val[1] == 1 {
+				b = true
+				e = nil
+			}
+		} else {
+			e = errors.New(`File size is too big.`)
 		}
+
 	}
 
 	return
@@ -136,7 +141,7 @@ func GetImageSize(file *os.File) (width, height int) {
 //GetImageSizeAndCount 取得照片里面人脸数量和面积
 //https://github.com/opencv/opencv/tree/master/data/haarcascades
 //https://blog.csdn.net/yangleo1987/article/details/52858706
-func GetImageSizeAndCount(f *os.File) (faceCount int, long, width, area float64, e error) {
+func GetFaceSizeAndCount(f *os.File) (faceCount int, long, width, area float64, rect image.Rectangle, e error) {
 	b := make([]byte, 1024000)
 	f.ReadAt(b, 0)
 	img, err := gocv.IMDecode(b, gocv.IMReadColor)
@@ -158,6 +163,30 @@ func GetImageSizeAndCount(f *os.File) (faceCount int, long, width, area float64,
 				long = math.Abs(float64(max.X - min.X))
 				width = math.Abs(float64(max.Y - min.Y))
 				area = long * width
+				rect = rects[0]
+			} else if faceCount < 3 {
+				min1 := rects[0].Min
+				max1 := rects[0].Max
+				l1 := math.Abs(float64(max1.X - min1.X))
+				w1 := math.Abs(float64(max1.Y - min1.Y))
+				a1 := l1 * w1
+				min2 := rects[1].Min
+				max2 := rects[1].Max
+				l2 := math.Abs(float64(max2.X - min2.X))
+				w2 := math.Abs(float64(max2.Y - min2.Y))
+				a2 := l2 * w2
+
+				if a1 > a2 {
+					area = a1
+					long = l1
+					width = w1
+					rect = rects[0]
+				} else {
+					area = a2
+					long = l2
+					width = w2
+					rect = rects[1]
+				}
 			}
 		}
 	}
