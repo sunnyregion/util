@@ -156,36 +156,40 @@ func GetFaceSizeAndCount(f *os.File) (faceCount int, long, width, area float64, 
 		} else {
 			rects := classifier.DetectMultiScale(img)
 			faceCount = len(rects)
-			e = nil
-			if faceCount < 2 {
-				min := rects[faceCount-1].Min
-				max := rects[faceCount-1].Max
-				long = math.Abs(float64(max.X - min.X))
-				width = math.Abs(float64(max.Y - min.Y))
-				area = long * width
-				rect = rects[0]
-			} else if faceCount < 3 {
-				min1 := rects[0].Min
-				max1 := rects[0].Max
-				l1 := math.Abs(float64(max1.X - min1.X))
-				w1 := math.Abs(float64(max1.Y - min1.Y))
-				a1 := l1 * w1
-				min2 := rects[1].Min
-				max2 := rects[1].Max
-				l2 := math.Abs(float64(max2.X - min2.X))
-				w2 := math.Abs(float64(max2.Y - min2.Y))
-				a2 := l2 * w2
-
-				if a1 > a2 {
-					area = a1
-					long = l1
-					width = w1
+			if faceCount == 0 {
+				e = errors.New("This is not a image.")
+			} else {
+				e = nil
+				if faceCount < 2 {
+					min := rects[faceCount-1].Min
+					max := rects[faceCount-1].Max
+					long = math.Abs(float64(max.X - min.X))
+					width = math.Abs(float64(max.Y - min.Y))
+					area = long * width
 					rect = rects[0]
-				} else {
-					area = a2
-					long = l2
-					width = w2
-					rect = rects[1]
+				} else if faceCount < 3 {
+					min1 := rects[0].Min
+					max1 := rects[0].Max
+					l1 := math.Abs(float64(max1.X - min1.X))
+					w1 := math.Abs(float64(max1.Y - min1.Y))
+					a1 := l1 * w1
+					min2 := rects[1].Min
+					max2 := rects[1].Max
+					l2 := math.Abs(float64(max2.X - min2.X))
+					w2 := math.Abs(float64(max2.Y - min2.Y))
+					a2 := l2 * w2
+
+					if a1 > a2 {
+						area = a1
+						long = l1
+						width = w1
+						rect = rects[0]
+					} else {
+						area = a2
+						long = l2
+						width = w2
+						rect = rects[1]
+					}
 				}
 			}
 		}
