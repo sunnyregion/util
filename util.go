@@ -202,7 +202,7 @@ func GetULID() ulid.ULID {
 
 //GetULID 得到UUID
 func GetULIDV4() UUID.UUID {
-	return UUID.Must(UUID.NewV4())
+	return UUID.Must(UUID.NewV4(), nil)
 }
 
 //GetULID2Str ...
