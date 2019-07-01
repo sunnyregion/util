@@ -38,7 +38,8 @@ import (
 
 	"github.com/oklog/ulid"
 	//"github.com/pquerna/ffjson/ffjson"
-	UUID "github.com/satori/go.uuid"
+	//UUID "github.com/satori/go.uuid"
+	UUID "github.com/sunnyregion/go.uuid"
 )
 
 const EARTH_RADIUS = 6371000
