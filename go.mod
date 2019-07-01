@@ -10,5 +10,5 @@ require (
 	github.com/modern-go/reflect2 v1.0.1 // indirect
 	github.com/oklog/ulid v1.3.1
 	github.com/rwcarlsen/goexif v0.0.0-20190401172101-9e8deecbddbd
-	github.com/satori/go.uuid v1.2.0
+	github.com/sunnyregion/go.uuid v1.2.0
 )
