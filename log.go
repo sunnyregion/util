@@ -22,7 +22,7 @@ func DoWritLogFile(data interface{}, msg string, symbol string, lf *os.File) {
 
 // writeLogFile  把写日志变成多线程
 func writeLogFile(ch chan sunnyLogStruct, lf *os.File) {
-	logFile, err := os.OpenFile(lf.Name(), os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+	logFile,_ := os.OpenFile(lf.Name(), os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 	defer logFile.Close()
 	lf.Close()
 	mych := <-ch
