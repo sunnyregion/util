@@ -22,14 +22,18 @@ func DoWritLogFile(data interface{}, msg string, symbol string, lf *os.File) {
 
 // writeLogFile  把写日志变成多线程
 func writeLogFile(ch chan sunnyLogStruct, lf *os.File) {
+	logFile, err := os.OpenFile(lf.Name(), os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+	defer logFile.Close()
+	lf.Close()
 	mych := <-ch
 	message := ""
-	log.SetOutput(lf)
+	//log.SetOutput(lf)
+	logger := log.New(logFile, "", log.LstdFlags)
 	switch mych.symbol {
 	case "str":
 		message = mych.data.(string)
 	default:
 		message = SunnyJSONToStr(mych.data)
 	}
-	log.Println("\t"+message, "---"+mych.msg+"\r\n")
+	logger.Println("\t"+message, "---"+mych.msg+"\r\n")
 }
