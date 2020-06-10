@@ -28,6 +28,8 @@ github.com/sunnyregion/go.uuid v1.2.0 h1:ig7kHg3KF04cX306pP99TcbDPx6wxPMDxkcyKGk
 github.com/sunnyregion/go.uuid v1.2.0/go.mod h1:AEGxoR6/+8wQJtidvWy+KMV3FYFsZNf9Pikgznx7YrY=
 github.com/sunnyregion/go.uuid v1.2.1-0.20190701023912-d67d3685f3fb h1:Gyi+X+CGk9Rrn6cOTZH2oqkSEOj9QXBeWc7XNkeg1eA=
 github.com/sunnyregion/go.uuid v1.2.1-0.20190701023912-d67d3685f3fb/go.mod h1:AEGxoR6/+8wQJtidvWy+KMV3FYFsZNf9Pikgznx7YrY=
+gocv.io/x/gocv v0.23.0 h1:3Fgbt06/uR8Zf9emWndhjbUjdrw+nto69R/b4noFydY=
+gocv.io/x/gocv v0.23.0/go.mod h1:Rar2PS6DV+T4FL+PM535EImD/h13hGVaHhnCu1xarBs=
 golang.org/x/image v0.0.0-20180708004352-c73c2afc3b81 h1:00VmoueYNlNz/aHIilyyQz/MHSqGoWJzpFv/HW8xpzI=
 golang.org/x/image v0.0.0-20180708004352-c73c2afc3b81/go.mod h1:ux5Hcp/YLpHSI86hEcLt0YII63i6oz57MZXIpbrjZUs=
 gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127 h1:qIbj1fsPNlZgppZ+VLlY7N33q108Sa+fhmuc+sWQYwY=

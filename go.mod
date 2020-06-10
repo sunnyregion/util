@@ -13,5 +13,6 @@ require (
 	github.com/rwcarlsen/goexif v0.0.0-20190401172101-9e8deecbddbd
 	github.com/stretchr/testify v1.3.0
 	github.com/sunnyregion/go.uuid v1.2.1-0.20190701023912-d67d3685f3fb
+	gocv.io/x/gocv v0.23.0
 	gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127 // indirect
 )
