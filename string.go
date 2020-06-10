@@ -35,3 +35,15 @@ func GetI18NValue(s, lang string) (result string, err error) {
 	}
 	return result, err
 }
+
+//RemoveDuplicatesAndEmpty 排重函数
+func RemoveDuplicatesAndEmpty(a []string) (ret []string) {
+	a_len := len(a)
+	for i := 0; i < a_len; i++ {
+		if (i > 0 && a[i-1] == a[i]) || len(a[i]) == 0 {
+			continue
+		}
+		ret = append(ret, a[i])
+	}
+	return ret
+}
