@@ -3,7 +3,7 @@ package cosinesimilarity
 import "errors"
 
 //GetInnerProduct 计算内积值
-func GetInnerProduct(a, b []float64, l int) (ip float64, err error) {
+func GetInnerProduct(a, b []float32, l int) (ip float32, err error) {
 	ip = 0
 
 	for i := 0; i < l; i++ {

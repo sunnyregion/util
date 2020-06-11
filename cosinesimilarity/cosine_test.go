@@ -7,8 +7,8 @@ import (
 
 func TestCosine(t *testing.T) {
 
-	a := []float64{1, 1, 0, 0, 1}
-	b := []float64{1, 1, 0, 0, 1}
+	a := []float32{1, 1, 0, 0, 1}
+	b := []float32{1, 1, 0, 0, 1}
 	cos, err := GetInnerProduct(a, b, 5)
 	if err != nil {
 		t.Error(err)
@@ -18,8 +18,8 @@ func TestCosine(t *testing.T) {
 		t.Error("Expected similarity of 1, got instead ", cos)
 	}
 
-	a = []float64{2, 2, 2}
-	b = []float64{2, 2, 2}
+	a = []float32{2, 2, 2}
+	b = []float32{2, 2, 2}
 	cos, err = GetInnerProduct(a, b, 3)
 	if err != nil {
 		t.Error(err)
