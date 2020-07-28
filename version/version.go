@@ -7,11 +7,20 @@ import (
 )
 
 var (
-	VERSION    string
-	BUILD_TIME string
-	BUILD_NAME string
-	GO_VERSION string
-	EMOJI      string
+	//VERSION  版本信息
+	VERSION string
+	//BuildTime 创建时间
+	BuildTime string
+	//BuildName build的名字
+	BuildName string
+	//GitID git版本
+	GitID string
+	//GoVersion 版本
+	GoVersion string
+	//EMOJI 表情
+	EMOJI string
+	//GitBranch 版本分支
+	GitBranch string
 )
 
 func init() {
@@ -19,10 +28,12 @@ func init() {
 	flag.BoolVar(&showVer, "v", false, "show build version")
 	flag.Parse()
 	if showVer {
-		fmt.Printf("Build Name:\t%s\n", BUILD_NAME)
+		fmt.Printf("Build Name:\t%s\n", BuildName)
 		fmt.Printf("Build Version:\t%s\n", VERSION)
-		fmt.Printf("Build Time:\t%s\n", BUILD_TIME)
-		fmt.Printf("Git ID:\t%s\n", GO_VERSION)
+		fmt.Printf("Build Time:\t%s\n", BuildTime)
+		fmt.Printf("Git ID:\t%s\n", GitID)
+		fmt.Printf("Git Branch:\t%s\n", GitBranch)
+		fmt.Printf("Go Version:\t%s\n", GoVersion)
 		//fmt.Println(`-----🎉🎉🎉👍💁👌⚽🎍😍🎉🎉🎉------`)
 		fmt.Println(EMOJI)
 		os.Exit(0)
