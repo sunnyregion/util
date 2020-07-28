@@ -26,18 +26,15 @@ import (
 	"encoding/base64"
 	"errors"
 	"image"
-	"image/color"
 	"image/jpeg"
 	"image/png"
 
-	"math"
 	"os"
 	"strings"
 
 	"github.com/disintegration/imaging"
 	"github.com/rwcarlsen/goexif/exif"
 	"github.com/rwcarlsen/goexif/mknote"
-	"gocv.io/x/gocv"
 )
 
 //Jpg2Base64 ...
@@ -140,65 +137,65 @@ func GetImageSize(file *os.File) (width, height int) {
 	return
 }
 
-//GetImageSizeAndCount 取得照片里面人脸数量和面积
-//https://github.com/opencv/opencv/tree/master/data/haarcascades
-//https://blog.csdn.net/yangleo1987/article/details/52858706
-func GetFaceSizeAndCount(f *os.File) (faceCount int, long, width, area float64, rect image.Rectangle, e error) {
-	b := make([]byte, 1024000)
-	f.ReadAt(b, 0)
-	img, err := gocv.IMDecode(b, gocv.IMReadColor)
-	if err != nil {
-		e = errors.New("This is not a image.")
-	} else {
-		xmlFile := "face.xml"
-		classifier := gocv.NewCascadeClassifier()
-		defer classifier.Close()
-		if !classifier.Load(xmlFile) {
-			e = errors.New("Error reading cascade file: " + xmlFile)
-		} else {
-			rects := classifier.DetectMultiScale(img)
-			faceCount = len(rects)
-			e = nil
-			if faceCount < 2 {
-				min := rects[faceCount-1].Min
-				max := rects[faceCount-1].Max
-				long = math.Abs(float64(max.X - min.X))
-				width = math.Abs(float64(max.Y - min.Y))
-				area = long * width
-				rect = rects[0]
-			} else if faceCount < 3 {
-				min1 := rects[0].Min
-				max1 := rects[0].Max
-				l1 := math.Abs(float64(max1.X - min1.X))
-				w1 := math.Abs(float64(max1.Y - min1.Y))
-				a1 := l1 * w1
-				min2 := rects[1].Min
-				max2 := rects[1].Max
-				l2 := math.Abs(float64(max2.X - min2.X))
-				w2 := math.Abs(float64(max2.Y - min2.Y))
-				a2 := l2 * w2
-
-				if a1 > a2 {
-					area = a1
-					long = l1
-					width = w1
-					rect = rects[0]
-				} else {
-					area = a2
-					long = l2
-					width = w2
-					rect = rects[1]
-				}
-			}
-		}
-	}
-	return
-}
-
-func SaveRectange(f *os.File, rect image.Rectangle) {
-	b := make([]byte, 1024000)
-	f.ReadAt(b, 0)
-	img, _ := gocv.IMDecode(b, gocv.IMReadColor)
-	blue := color.RGBA{0, 0, 255, 0}
-	gocv.Rectangle(&img, rect, blue, 3)
-}
+// //GetImageSizeAndCount 取得照片里面人脸数量和面积
+// //https://github.com/opencv/opencv/tree/master/data/haarcascades
+// //https://blog.csdn.net/yangleo1987/article/details/52858706
+// func GetFaceSizeAndCount(f *os.File) (faceCount int, long, width, area float64, rect image.Rectangle, e error) {
+// 	b := make([]byte, 1024000)
+// 	f.ReadAt(b, 0)
+// 	img, err := gocv.IMDecode(b, gocv.IMReadColor)
+// 	if err != nil {
+// 		e = errors.New("This is not a image.")
+// 	} else {
+// 		xmlFile := "face.xml"
+// 		classifier := gocv.NewCascadeClassifier()
+// 		defer classifier.Close()
+// 		if !classifier.Load(xmlFile) {
+// 			e = errors.New("Error reading cascade file: " + xmlFile)
+// 		} else {
+// 			rects := classifier.DetectMultiScale(img)
+// 			faceCount = len(rects)
+// 			e = nil
+// 			if faceCount < 2 {
+// 				min := rects[faceCount-1].Min
+// 				max := rects[faceCount-1].Max
+// 				long = math.Abs(float64(max.X - min.X))
+// 				width = math.Abs(float64(max.Y - min.Y))
+// 				area = long * width
+// 				rect = rects[0]
+// 			} else if faceCount < 3 {
+// 				min1 := rects[0].Min
+// 				max1 := rects[0].Max
+// 				l1 := math.Abs(float64(max1.X - min1.X))
+// 				w1 := math.Abs(float64(max1.Y - min1.Y))
+// 				a1 := l1 * w1
+// 				min2 := rects[1].Min
+// 				max2 := rects[1].Max
+// 				l2 := math.Abs(float64(max2.X - min2.X))
+// 				w2 := math.Abs(float64(max2.Y - min2.Y))
+// 				a2 := l2 * w2
+//
+// 				if a1 > a2 {
+// 					area = a1
+// 					long = l1
+// 					width = w1
+// 					rect = rects[0]
+// 				} else {
+// 					area = a2
+// 					long = l2
+// 					width = w2
+// 					rect = rects[1]
+// 				}
+// 			}
+// 		}
+// 	}
+// 	return
+// }
+//
+// func SaveRectange(f *os.File, rect image.Rectangle) {
+// 	b := make([]byte, 1024000)
+// 	f.ReadAt(b, 0)
+// 	img, _ := gocv.IMDecode(b, gocv.IMReadColor)
+// 	blue := color.RGBA{0, 0, 255, 0}
+// 	gocv.Rectangle(&img, rect, blue, 3)
+// }
