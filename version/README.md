@@ -11,23 +11,29 @@ _ "github.com/sunnyregion/util/version"
 
 ```go
 BUILD_NAME      := appRun          # _$(shell date "+%Y%m%d%H" )
-BUILD_VERSION   := v0.1.0
+BUILD_VERSION   := V1.0.1.9-$(shell date "+%Y%m%d")
 BUILD_TIME      := $(shell date "+%F %T")
 SOURCE          := main.go
 TARGET_DIR      := ./
-GO_VERSION      := $(shell git rev-parse HEAD )
-EMOJI           := _|￣|○ -----🎉🎉🎉👍💁👌⚽🎍😍🎉🎉🎉------○|￣|_
+GIT_ID           := $(shell git rev-parse HEAD )
+GO_VERSION      := $(shell go version)
+GIT_BRANCH	:= $(shell git symbolic-ref --short -q HEAD)
+EMOJI           := _|￣|○ -----🎉🎉🎉👍💁👌huizhi api⚽🎍😍🎉🎉🎉------○|￣|_
+
 
 all:
 	# CGO_ENABLED=0 GOOS=linux GOARCH=amd64
-	go build -ldflags  \
-	"                  \
-	-X 'github.com/sunnyregion/util/version.VERSION=${BUILD_VERSION}' \
-	-X 'github.com/sunnyregion/util/version.BUILD_TIME=${BUILD_TIME}' \
-	-X 'github.com/sunnyregion/util/version.BUILD_NAME=${BUILD_NAME}'  \
-	-X 'github.com/sunnyregion/util/version.GO_VERSION=${GO_VERSION}' \
-	-X 'github.com/sunnyregion/util/version.EMOJI=${EMOJI}' \
-	" \
+	CGO_ENABLED=1 GOOS=linux GOARCH=amd64 go build -ldflags  \
+		" \
+		-X 'github.com/sunnyregion/util/version.VERSION=${BUILD_VERSION}' \
+		-X 'github.com/sunnyregion/util/version.BuildTime=${BUILD_TIME}' \
+		-X 'github.com/sunnyregion/util/version.BuildName=${BUILD_NAME}'  \
+		-X 'github.com/sunnyregion/util/version.GitID=${GIT_ID}' \
+		-X 'github.com/sunnyregion/util/version.GitBranch=${GIT_BRANCH}' \
+		-X 'github.com/sunnyregion/util/version.GoVersion=${GO_VERSION}' \
+		-X 'github.com/sunnyregion/util/version.EMOJI=${EMOJI}' \
+		" \
+
     -o ${BUILD_NAME} ${SOURCE}
 
 clean:
