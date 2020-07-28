@@ -31,7 +31,7 @@ func init() {
 		fmt.Printf("Build Name:\t%s\n", BuildName)
 		fmt.Printf("Build Version:\t%s\n", VERSION)
 		fmt.Printf("Build Time:\t%s\n", BuildTime)
-		fmt.Printf("Git ID:\t\t%s\n", GitID)
+		fmt.Printf("Git IDVersion:\t%s\n", GitID)
 		fmt.Printf("Git Branch:\t%s\n", GitBranch)
 		fmt.Printf("Go Version:\t%s\n", GoVersion)
 		//fmt.Println(`-----🎉🎉🎉👍💁👌⚽🎍😍🎉🎉🎉------`)
