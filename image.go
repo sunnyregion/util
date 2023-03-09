@@ -61,10 +61,17 @@ func Jpg2Base64(filename string) (base64Str string, err error) {
 func Base642Image(image string) (img image.Image, picType string, err error) {
 
 	coI := strings.Index(string(image), ",")
+	if coI==-1 {
+		err=errors.New("base64 format error")
+		return 
+	}
 	rawImage := string(image)[coI+1:]
-
+	var unbased []byte
 	// Encoded Image DataUrl //
-	unbased, _ := base64.StdEncoding.DecodeString(string(rawImage))
+	unbased, err = base64.StdEncoding.DecodeString(string(rawImage))
+	 if err!=nil{
+		return
+	 }
 
 	res := bytes.NewReader(unbased)
 
